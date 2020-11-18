@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="input">
+  <script>
+    var oInput = document.getElementById('input')
+    oInput.onkeyup = throttle(check, 1000)
+
+    function check() {
+      const val = oInput.value;
+      if (val.length < 6) {
+        console.log('Invalid Length')
+      } else {
+        console.log('Success')
+      }
+    }
+
+    function throttle(fn, delay) {
+      var timer = null,
+          beginTime = new Date().getTime();
+
+      return function() {
+        const curTime = new Date().getTime(),
+          args = arguments,
+          self = this;
+        if (timer) clearTimeout(timer);
+        if (curTime - beginTime < delay) {
+          timer = setTimeout(function() {
+            fn.apply(self, args)
+          }, delay)
+        } else {
+          fn.apply(self, args)
+          beginTime = curTime;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
