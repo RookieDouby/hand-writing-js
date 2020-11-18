@@ -12,15 +12,14 @@ function myPromise(fn) {
   that.status = PENDING;
   that.value = null;
   that.reason = null;
-
   that.resolvedCallbacks = [];
-  that.rejectedCallbacks = [];
+  that.rejectedCallbacks = []
 
   function resolve(value) {
     if (that.status === PENDING) {
       that.status = RESOLVED;
       that.value = value;
-      that.resolvedCallbacks.map(cb => cb(value));
+      that.resolvedCallbacks.map(cb => cb(value))
     }
   }
 
@@ -28,14 +27,14 @@ function myPromise(fn) {
     if (that.status === PENDING) {
       that.status = REJECTED;
       that.reason = reason;
-      that.rejectedCallbacks.map(cb => cb(reason));
+      that.rejectedCallbacks.map(cb => cb(reason))
     }
   }
 
   try {
-    fn(resolve, reject);
+    fn(resolve, reject)
   } catch(e) {
-    reject(e);
+    reject(e)
   }
 }
 
@@ -48,24 +47,22 @@ myPromise.prototype.then = function(onFullfilled, onRejected) {
   }
 
   if (that.status === RESOLVED) {
-    onFullfilled(that.value);
+    onFullfilled(that.value)
   }
 
   if (that.status === REJECTED) {
-    onFullfilled(that.reason);
+    onRejected(that.reason);
   }
 
   return that;
 }
 
-const p = new myPromise((resolve, reject) => {
+const promise = new myPromise((resolve, reject) => {
   setTimeout(() => {
-    resolve(1000);
-  }, 1000);
-});
+    resolve(1000)
+  }, 1000)
+})
 
-p.then((res) => {
-  console.log('结果：', res); // 结果：1000
-}).then(() => {
-  console.log('jsliang'); // jsliang
+promise.then((res) => {
+  console.log(res)
 })
