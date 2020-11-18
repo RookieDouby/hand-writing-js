@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>防抖示例</title>
+  <style>
+    .box {
+      width: 300px;
+      height: 300px;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="box"></div>
+</body>
+
+<script type="text/javascript">
+  var oBox = document.getElementsByClassName('box')[0]
+  function test() {
+    console.log(1)
+  }
+
+  oBox.onmouseover = debounce(test, 1000, true)
+
+  function debounce(fn, delay, triggerNow) {
+    let timer = null;
+
+    let debounced =  function() {
+      const self = this;
+      const args = arguments;
+
+      if (timer) clearTimeout(timer)
+      if (triggerNow) {
+        const isExec = !timer;
+
+        timer = setTimeout(function() {
+          timer = null;
+        }, delay)
+
+        if (isExec) {
+          fn.apply(self, args)
+        }
+      } else {
+        timer = setTimeout(function() {
+          fn.apply(self, args)
+        }, delay)
+      }
+    }
+
+    debounced.remove = function() {
+      clearTimeout(timer)
+      timer = null;
+    }
+    return debounced;
+  }
+</script>
+</html>
