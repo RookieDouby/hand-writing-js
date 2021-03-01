@@ -1,3 +1,4 @@
+// 组合继承
 function Father(name) {
   this.name = name;
   this.colors = ['red', 'yellow', 'blue'];
