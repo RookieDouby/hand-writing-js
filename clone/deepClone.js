@@ -5,6 +5,7 @@ function deepClone(obj) {
     for (let i in obj) {
       result[i] = typeof obj[i] === 'object' ? deepClone(obj[i]) : obj[i]
     }
+    实打实撒多
   } else {
     var result = obj;
   }

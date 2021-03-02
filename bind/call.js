@@ -3,6 +3,7 @@ Function.prototype.myCall = function(context) {
   context = context || window;
   context.say = this;
   context.say();
+
 }
 
 const Person = {
